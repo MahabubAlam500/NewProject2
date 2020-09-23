@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Paggination.Models.Employee>
+@{
+    ViewData["Title"] = "Home Page";
+    int i = 1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">jQuery Ajax Example</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <h6 class="text text-primary" data-eid="@item.Id"> @i.@item.EmployeeName</h6>
+                i++;
+            }
+        }
+
+
+    </div>
+    <div id="empinfo" class="col-md-7">
+
+    </div>
+   
+</div>
+
+@section Scripts{ 
+
+    <script>
+        $(document).ready(function () {
+            $("h6").mousemove(function () {
+               // alert('Its work .');
+
+                var id = $(this).data("eid");
+                $("#empinfo").html('ID : ' + id);
+            
+              
+
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,225 @@
+﻿@model PaginatedList<Paggination.Models.Employee>
+
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 1;
+
+
+    var prevdisabled = Model.HasPreviousPage ? " " : "disabled";
+    var nextdisabled = Model.HasNextPage ? " " : "disabled";
+
+    var cp = Model.PageIndex;
+    var tp = Model.TotalPages;
+
+
+    i = (cp - 1) * 10 + 1;
+
+}
+
+<h1>Employess Records </h1>
+<table>
+    <div class="row">
+        <div class="col-md-11">
+            <a asp-action="Index"
+               asp-route-sortname="@ViewBag.sortbyname"
+               asp-route-utext="@ViewBag.stext"
+               asp-route-Page="@(cp-1)"
+               class="btn btn-info @ViewBag.prevdisabled">
+
+                previous
+            </a>
+
+            @for (int k = cp - 3; k < cp + 4; k++)
+            {
+                @if (k > 0)
+                {
+                    @if (cp == k)
+                    {
+                        <a asp-action="Index"
+                           asp-route-sortname="@ViewBag.sortbyname"
+                           asp-route-utext="@ViewBag.stext"
+                           asp-route-Page="@k"
+                           class="btn btn-danger @ViewBag.prevdisabled">
+                            @k
+
+
+                        </a>
+
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-route-sortname="@ViewBag.sortbyname"
+                           asp-route-utext="@ViewBag.stext"
+                           asp-route-Page="@k"
+                           class="btn btn-info @ViewBag.nextdisabled">
+                            @k
+
+
+                        </a>
+                    }
+                }
+            }
+
+            <a asp-action="Index"
+               asp-route-sortname="@ViewBag.sortbyname"
+               asp-route-utext="@ViewBag.stext"
+               asp-route-Page="@(cp+1)"
+               class="btn btn-info @ViewBag.nextdisabled">
+
+                Next
+            </a>
+
+
+        </div>
+    </div>
+</table>
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+
+    </div>
+    <div class="col-md-9">
+        <span class="text text-primary">Total @ViewBag.Count Row Matched</span>
+        <form asp-action="Index" class="form-inline" method="post">
+            <input type="text" class="form-control" name="utext" placeholder="Type your searching name" value="@ViewBag.stext" />
+            <button type="submit" value="Serach" class="btn btn-danger">Seraching</button>
+
+        </form>
+
+    </div>
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-hover table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>
+                <a asp-action="Index" asp-route-sortname="@ViewBag.sortbyname" asp-route-utext="@ViewBag.stext">
+                    @* <a asp-action="Index" asp-route-sortname="@ViewBag.sortbyname" asp-route-utext="@ViewBag.stext">*@
+                    EmployeeName
+                </a>
+
+            </th>
+            <th>
+                EmployeeStatus
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                PayBasis
+            </th>
+            <th>
+                PositionTitle
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayBasis)
+                </td>
+                <td>
+                    @{
+                        string pt = item.PositionTitle;
+                        if (pt.Length > 10)
+                        {
+                            <text>@pt.Substring(0, 10)</text>
+                        }
+                        else
+                        {
+                            <text>@pt</text>
+                        }
+                        <text>....more.....</text>
+                    }
+
+                </td>
+
+                <td>
+                    <a asp-action="Edit" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a> |
+                    <a asp-action="Details" class="btn btn-secondary" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>
+<table>
+    <div class="row">
+        <div class="col-md-11">
+            <a asp-action="Index"
+               asp-route-sortname="@ViewBag.sortbyname"
+               asp-route-utext="@ViewBag.stext"
+               asp-route-Page="@(cp-1)"
+               class="btn btn-info @ViewBag.prevdisabled">
+
+                previous
+            </a>
+
+            @for (int k = cp - 3; k < cp + 4; k++)
+            {
+                @if (k > 0)
+                {
+                    @if (cp == k)
+                    {
+                        <a asp-action="Index"
+                           asp-route-sortname="@ViewBag.sortbyname"
+                           asp-route-utext="@ViewBag.stext"
+                           asp-route-Page="@k"
+                           class="btn btn-danger @ViewBag.prevdisabled">
+                            @k
+
+
+                        </a>
+
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-route-sortname="@ViewBag.sortbyname"
+                           asp-route-utext="@ViewBag.stext"
+                           asp-route-Page="@k"
+                           class="btn btn-info @ViewBag.nextdisabled">
+                            @k
+
+
+                        </a>
+                    }
+                }
+            }
+
+            <a asp-action="Index"
+               asp-route-sortname="@ViewBag.sortbyname"
+               asp-route-utext="@ViewBag.stext"
+               asp-route-Page="@(cp+1)"
+               class="btn btn-info @ViewBag.nextdisabled">
+
+                Next
+            </a>
+
+
+        </div>
+    </div>
+</table>
